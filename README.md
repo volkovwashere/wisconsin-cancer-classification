@@ -28,3 +28,11 @@ __Second proposal__
 
 
 ![mlopsdiagram2](https://user-images.githubusercontent.com/57996039/220202657-c1ed1229-56b2-4001-9ce3-5a3447fa0ab8.png)
+
+<br>
+This solution is very similar to the first one but more optimized, and is easier to use since it mostly uses native aws sagemaker services. 
+<br>
+In the training account workflow I changed the AWS Batch service to AWS SageMaker pipelines. It works almost similarly, where the maintainer can configure a compute group, and the service will scale / balance the commited resources to a submitted job based on workload. In my opinion it is a better solution than using another layer (AWS Batch), reduces extra configuring and is native to sagemaker. Another change I made here is that I replaced cloudwatch with sagemaker model monitoring.
+
+<br>
+In the prediction pipeline I removed the APIs. Now the end user just submits a batch transform job, sagemaker will initialize the compute instance configured, and will run the inference on the datasets. We can collect the results to an S3 bucket and then with an additional model monitoring we can collect the results from two custom checkpoints with a script, or automate it with a service. 
