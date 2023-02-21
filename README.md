@@ -1,4 +1,10 @@
 # turbine-homework
+## Classificiation task<br>
+1. The custom block I added to the TF training is called FCN block, which combines an FCN layer with a layernorm and relu layer. Layer norm is used to normalize the feature values.<br>
+3. for task 3 I chose an ensemble model called catboost (gradient boosted ensemble model), which is an improved version of XGBoost. I chose this model because these types of models most often outperform DL applications on tabular data (kaggle competitions), and can work with less data better than DL ones. It is also really easy to train, compatible with sklearn library and has built in hyperparam search.<br>
+4. I wrote a simple "automated" script that searches for eval published by TF and CatBoost, and compares them across every metric key included in sklearn's classification_report class. The script chooses a candidate model based on how many times was model_x better at metric_y, (x, y - 1 ... n). If I had to look at the results manually, I would first identify a metric that is cruical to the business problem at hand and then evaluate based on that. In this case in my opinion correctly classifying the malignant cases is more important than classifying benign ones, since an unnoticed cancer could lead to death, whereas the other way around would be less lethal / could turn out easily that it is false on the next check up. Therefore, it would be suitable to look at recall, sensitivity, and f1-score. Recall, because (tp / tp + fn), where fn means that we classified a malignant case as benign, and the goal would be to minimize these cases. For sensitivity (precision for the benign's point of view), because (tn / tn + fn). F1 is just for balance reasons (from the malignant case's point of view). 
+<br>
+Usually the preferred way to do training properly would be to split the original dataset into three parts (train, validation, test). But in this case due to the size of the dataset I decided to only use train and test (where I use the test set basically as validation). <br>
 
 ## MLOps arhictecture
 __First proposal__
